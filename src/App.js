@@ -21,7 +21,7 @@ const App = ({initialCount}) => {
 
     const restOne = () => {
         setState( prevState => { 
-           return { ...prevState, count: prevState.count - 1 }
+            return { ...prevState, count: prevState.count - 1 }
         })
     }
 
