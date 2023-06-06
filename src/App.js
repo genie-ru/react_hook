@@ -1,65 +1,75 @@
-import React,{ useState } from 'react'
+import React, { useState, useEffect } from 'react';
+import Post from './post';
 
 
-const App = ({initialCount}) => {
-    let [state, setState] = useState({
-        count:initialCount,
-        user:"Francis"
+const App = ({ initialCount }) => {
+    const [state, setState] = useState({
+        count: initialCount,
+        user: "Francis"
     });
-    let [posts,setPosts] = useState([
-        {
-            name:"Super awesome hooks",
-            body:"Everything you need for your hooks"
-        }
+    const [posts, setPosts] = useState([
+    {
+        name: "Super awesome hooks",
+        body: "Everything you need for your hooks"
+    }
     ]);
 
+    // useEffect(() => {
+    //     console.log(state);
+    // },[state]);
 
+    // useEffect(() => {
+    //     console.log(posts);
+    // },[posts]);
 
-    // const addOne = () => {
-    //     setCount(count + 1)
-    // }
+    // const alertSomething = () => {
+    //     alert('Something');
+    // };
+    // useEffect(() => {
+    //     console.log('Mounted');
+    // },[]);
+
 
     const restOne = () => {
-        setState( prevState => { 
-            return { ...prevState, count: prevState.count - 1 }
-        })
-    }
+        setState(prevState => {
+        return { ...prevState, count: prevState.count - 1 };
+        });
+    };
 
     const addOnePost = () => {
         let newPost = {
-            name:"Sugard is bad",
-            body:"Coffee is good"
-        }
+        name: "Sugard is bad",
+        body: "Coffee is good"
+        };
 
-        setPosts([
-            ...posts,
-            newPost
-        ]);
+        setPosts(prevPosts => [...prevPosts, newPost]);
+    };
+
+    const removePosts = () => {
+        setPosts([]);
     }
 
-
-    return(
+    return (
         <>
-            <h1>{state.user}</h1>
-            <h3>Count:{state.count}</h3>
-            <button onClick={ () => setState({...state,count: state.count + 1 })}>Add one +1</button>
-            <button onClick={ restOne }>Rest one -1</button>
-            <button onClick={ () => setState(
-                {...state,count: initialCount }
-            ) }>RESET</button>
+        <h1>{state.user}</h1>
+        <h3>Count: {state.count}</h3>
+        <button onClick={() => setState(prevState => ({ ...prevState, count: prevState.count + 1 }))}>
+            Add one +1
+        </button>
+        <button onClick={restOne}>Rest one -1</button>
+        <button onClick={() => setState(
+            {...state, count: initialCount }
+        ) }>RESET</button>
 
-            <hr/>
-            <button onClick={addOnePost}>Add one more</button>
-            { posts.map((item,i)=>(
-                <div key={i}>
-                    <div>Name:{item.name}</div>
-                    <div>Body:{item.body}</div>
-                    <hr/>
-                </div>
-            ))}
-            
+        <hr/>
+        
+        <button onClick={addOnePost}>Add one more</button>
+        <button onClick={removePosts}>Remove Post</button>
+        {posts.map((item, i) => (
+            <Post item={item} key={i} />
+        ))}
         </>
-    )
-}
+    );
+};
 
 export default App;
