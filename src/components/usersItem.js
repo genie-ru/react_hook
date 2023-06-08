@@ -1,9 +1,14 @@
+import React, { useContext } from 'react';
 
+import { MyContext } from '../context';
+const UsersItem = () => {
+    const context = useContext(MyContext);
 
-const UsersItem = (props) => {
+    console.log(context);
+    
     return (
         <>
-            
+            user item
         </>
     )
 }

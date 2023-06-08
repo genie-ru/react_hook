@@ -1,6 +1,6 @@
 import React from 'react';
 import User from './components/user';
-import Usersitem from './components/usersItem';
+import { MyProvider }  from './context';
 const App = () => {
 
     const users = [
@@ -10,8 +10,9 @@ const App = () => {
     ]
     return (
         <>
-            <User/>
-            <Usersitem/>
+            <MyProvider>
+                <User />
+            </MyProvider>
         </>
     )
 }
